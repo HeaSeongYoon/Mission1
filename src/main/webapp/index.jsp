@@ -7,7 +7,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="kr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -74,6 +74,10 @@
           padding: 0.5em;
           width: 100%;
         }
+
+        .form-container {
+                margin-top: 1.5em;
+        }
     </style>
 </head>
 <body>
@@ -83,19 +87,19 @@
             <a href="index.jsp">홈</a> | <a href="history.jsp">위치 히스토리 목록</a> | <a href="load-wifi.jsp">Open API 와이파이 정보 가져오기</a> |
             <a href="">북마크 보기</a> | <a href="bookmark_groups.jsp">북마크 그룹 관리</a>
         </div>
-
-        <form method="get" action="index.jsp">
-            <label> LNT :
-                <input type="text" placeholder="0.0" name="lnt" id="lnt">
-            </label>
-            <label> LAT :
-                <input type="text" placeholder="0.0" name="lat" id="lat">
-            </label>
-            <button type="button" onclick="getLocation()">내 위치 가져오기</button>
-                        <button type="submit">
-                            근처 WIFI 정보 보기
-                        </button>
-        </form>
+        <div class="form-container">
+            <form method="get" action="index.jsp">
+                <label> LNT :
+                    <input type="text" placeholder="0.0" name="lnt" id="lnt">
+                </label>
+                <label> LAT :
+                    <input type="text" placeholder="0.0" name="lat" id="lat">
+                </label>
+                <button type="button" onclick="getLocation()">내 위치 가져오기</button>
+                <button type="submit">
+                    근처 WIFI 정보 보기
+                </button>
+            </form>
         <%
             String lnt = request.getParameter("lnt");
             String lat = request.getParameter("lat");

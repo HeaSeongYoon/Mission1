@@ -1,9 +1,11 @@
 <%@ page import="java.util.List" %>
 <%@ page import="org.example.service.PubService" %>
 <%@ page import="org.example.domain.PubWifi" %>
+<%@ page import="org.example.service.BookmarkGroupService" %><!-- BookmarkGroupService 클래스 추가 -->
+<%@ page import="org.example.domain.BookmarkGroup" %><!-- BookmarkGroup 클래스 추가 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="kr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -106,11 +108,17 @@
             <a href="">북마크 보기</a> |
             <a href="bookmark_groups.jsp">북마크 그룹 관리</a>
         </div>
+        <%
+                    // BookmarkGroupService 클래스를 인스턴스화 하여 그룹 이름을 가져옵니다.
+                    BookmarkGroupService bookmarkGroupService = new BookmarkGroupService();
+                    List<BookmarkGroup> bookmarkGroups = bookmarkGroupService.listAllGroups();
+        %>
         <div class="bookmark-group">
-            <select name="bookmark-group-selector" id="bookmark-group-selector">
-                <option value="" disabled selected>북마크 그룹 이름 선택하기</option>
-                <!-- 북마크 그룹 리스트 추가 -->
-                <!-- 예시: <option value="sample-group">예시 그룹</option> -->
+                    <select name="bookmark-group-selector" id="bookmark-group-selector">
+                        <option value="" disabled selected>북마크 그룹 이름 선택하기</option>
+                        <% for (BookmarkGroup group : bookmarkGroups) { %> <!-- 북마크 그룹 리스트 추가 -->
+                            <option value="<%= group.getId() %>"><%= group.getName() %></option>
+                        <% } %>
             </select>
             <button type="button">북마크 추가하기</button>
         </div>

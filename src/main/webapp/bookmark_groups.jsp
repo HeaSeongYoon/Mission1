@@ -1,104 +1,77 @@
-<%@page import="java.util.List"%>
-<%@page import="java.util.Map"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.util.HashMap"%>
-<%@page import="java.util.Date"%>
-<%@page import="java.text.SimpleDateFormat"%>
-
-<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="org.example.service.BookmarkGroupService" %>
+<%@ page import="org.example.domain.BookmarkGroup" %>
+<%@ page import="java.util.List" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="kr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>북마크 그룹 관리</title>
-
     <style>
-
-        .nav-links {
-            margin-bottom: 30px;
-        }
-
-        form {
-            margin-bottom: 20px;
-        }
-
         table {
             border-collapse: collapse;
             width: 100%;
         }
-
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+            font-size: 16px;
+            text-align: center
+        }
         th {
+            font-weight: bold;
             background-color: #00ad6f;
-            color: white;
-
-            padding: 10px;
-            text-align: left;
+            color: #ffffff;
+            text-align : center;
         }
 
-        td {
-
-            padding: 10px;
-            text-align: left;
-        }
-
-        table, th, td {
-            border: 1px solid gray;
+        .add-button-container {
+                margin-top: 1.5em;
         }
     </style>
-
 </head>
 <body>
-    <h1>북마크 그룹</h1>
-    <div class="navigation">
-        <a href="index.jsp">홈</a> | <a href="history.jsp">위치 히스토리 목록</a> | <a href="load-wifi.jsp">Open API 와이파이 정보 가져오기</a> | <a href="bookmarks.jsp">북마크 보기</a> | <a href="bookmark_groups.jsp">북마크 그룹 관리</a>
-    </div>
+    <div class="container">
+        <h1>북마크 그룹</h1>
+        <div class="navigation">
+            <a href="index.jsp">홈</a> | <a href="history.jsp">위치 히스토리 목록</a> | <a href="load-wifi.jsp">Open API 와이파이 정보 가져오기</a> |
+            <a href="">북마크 보기</a> | <a href="bookmark_groups.jsp">북마크 그룹 관리</a>
+        </div>
+        <div class="add-button-container">
+            <button onclick="location.href = 'addBookmarkGroup.jsp'">북마크 그룹 이름 추가</button>
+        </div>
 
-    <div>
-        <button onclick="location.href='bookmark_group_add.jsp'">북마크 그룹 이름 추가</button>
-    </div>
-
-    <table border="1" cellspacing="0">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>북마크 이름</th>
-                <th>순서</th>
-                <th>등록일자</th>
-                <th>수정일자</th>
-                <th>비고</th>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>북마크 이름</th>
+            <th>순서</th>
+            <th>등록일자</th>
+            <th>수정일자</th>
+            <th>비고</th>
+        </tr>
+        <%
+            SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            BookmarkGroupService service = new BookmarkGroupService();
+            List<BookmarkGroup> bookmarkGroups = service.listAllGroups();
+            for (BookmarkGroup group : bookmarkGroups) {
+        %>
+        <tr>
+                <td><%= group.getId() %></td>
+                <td><%= group.getName() %></td>
+                <td><%= group.getOrder() %></td>
+                <td><%= dateFormatter.format(group.getCreateDate()) %></td>
+                <td><%= dateFormatter.format(group.getModifiedDate()) %></td>
+                <td>
+                    <a href="editBookmarkGroup.jsp?id=<%= group.getId() %>">수정</a>
+                    <a href="deleteBookmarkGroup.jsp?id=<%= group.getId() %>" onclick="return confirm('삭제하시겠습니까?');">삭제</a>
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            <%
-
-            // 예시
-            List<Map<String, Object>> bookmarkGroupList = new ArrayList<>();
-            Map<String, Object> exampleGroup = new HashMap<>();
-            exampleGroup.put("id", "123");
-            exampleGroup.put("name", "Study Group");
-            exampleGroup.put("order", 1);
-            exampleGroup.put("createdDate", new Date());
-            exampleGroup.put("modifiedDate", new Date());
-            bookmarkGroupList.add(exampleGroup);
-
-
-            for (Map<String, Object> group : bookmarkGroupList) {
-            %>
-                <tr>
-                    <td><%= group.get("id") %></td>
-                    <td><%= group.get("name") %></td>
-                    <td><%= group.get("order") %></td>
-                    <td><%= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(group.get("createdDate")) %></td>
-                    <td><%= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(group.get("modifiedDate")) %></td>
-                    <td>
-                        <a href="bookmark_group_edit.jsp?id=<%= group.get("id") %>">수정</a>
-                        <a href="bookmark_group_delete.jsp?id=<%= group.get("id") %>">삭제</a>
-                    </td>
-                </tr>
             <% } %>
-        </tbody>
     </table>
 </body>
 </html>
