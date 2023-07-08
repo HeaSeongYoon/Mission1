@@ -10,5 +10,14 @@ public class Db {
 
 
 
+
+    public static Connection getConnection() throws SQLException {
+        try {
+            Class.forName(CLASS);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return DriverManager.getConnection(URL);
+    }
 }
 

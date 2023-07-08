@@ -1,20 +1,19 @@
-<%@ page import="org.example.domain.BookmarkGroup" %>
 <%@ page import="org.example.service.BookmarkGroupService" %>
+<%@ page import="org.example.domain.BookmarkGroup" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 <%
-int groupId = Integer.parseInt(request.getParameter("groupId"));
-String groupName = request.getParameter("groupName");
-if (groupName != null && !groupName.isEmpty()) {
-    BookmarkGroup group = new BookmarkGroup();
-    group.setId(groupId);
-    group.setName(groupName);
+    int id = Integer.parseInt(request.getParameter("id"));
+    String name = request.getParameter("name");
+    int order = Integer.parseInt(request.getParameter("order"));
 
-    BookmarkGroupService service = new BookmarkGroupService();
-    boolean updateResult = service.updateGroup(group);
+    BookmarkGroupService bookmarkGroupService = new BookmarkGroupService();
+    BookmarkGroup group = new BookmarkGroup(id, name, order);
+    boolean isUpdated = bookmarkGroupService.updateGroup(group);
 
-    if (updateResult) {
+    if (isUpdated) {
         response.sendRedirect("bookmark_groups.jsp");
     } else {
-        // 에러 처리
+        response.sendRedirect("editBookmarkGroup.jsp?id=" + id + "&name=" + name + "&order=" + order);
     }
-}
 %>

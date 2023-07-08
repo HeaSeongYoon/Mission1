@@ -39,7 +39,7 @@
         <h1>북마크 그룹</h1>
         <div class="navigation">
             <a href="index.jsp">홈</a> | <a href="history.jsp">위치 히스토리 목록</a> | <a href="load-wifi.jsp">Open API 와이파이 정보 가져오기</a> |
-            <a href="">북마크 보기</a> | <a href="bookmark_groups.jsp">북마크 그룹 관리</a>
+            <a href="bookmark_list.jsp">북마크 보기</a> | <a href="bookmark_groups.jsp">북마크 그룹 관리</a>
         </div>
         <div class="add-button-container">
             <button onclick="location.href = 'addBookmarkGroup.jsp'">북마크 그룹 이름 추가</button>
@@ -48,7 +48,7 @@
     <table>
         <tr>
             <th>ID</th>
-            <th>북마크 이름</th>
+            <th>북마크 그룹 이름</th>
             <th>순서</th>
             <th>등록일자</th>
             <th>수정일자</th>
@@ -67,7 +67,7 @@
                 <td><%= dateFormatter.format(group.getCreateDate()) %></td>
                 <td><%= dateFormatter.format(group.getModifiedDate()) %></td>
                 <td>
-                    <a href="editBookmarkGroup.jsp?id=<%= group.getId() %>">수정</a>
+                    <a href="editBookmarkGroup.jsp?id=<%= group.getId() %>&name=<%= group.getName() %>&order=<%= group.getOrder() %>">수정</a>
                     <a href="deleteBookmarkGroup.jsp?id=<%= group.getId() %>" onclick="return confirm('삭제하시겠습니까?');">삭제</a>
                 </td>
             </tr>

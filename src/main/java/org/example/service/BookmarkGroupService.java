@@ -82,4 +82,17 @@ public class BookmarkGroupService {
         }
     }
 
+    public List<BookmarkGroup> getBookmarkGroups() {
+        try {
+            Connection conn = getConnection();
+
+            BookmarkGroupDao dao = new BookmarkGroupDao(conn);
+            return dao.findAll();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+
+    }
+
 }

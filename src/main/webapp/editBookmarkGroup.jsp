@@ -61,26 +61,33 @@
     </style>
 </head>
 <body>
+    <%!
+    int groupId;
+    String groupName;
+    int groupOrder;
+    %>
+    <%
+        groupId = Integer.parseInt(request.getParameter("id"));
+        groupName = request.getParameter("name");
+        groupOrder = Integer.parseInt(request.getParameter("order"));
+        BookmarkGroupService service = new BookmarkGroupService();
+        BookmarkGroup group = service.getGroupById(groupId);
+    %>
     <h1>북마크 그룹 수정</h1>
     <div class="navigation">
-        <a href="index.jsp">홈</a> | <a href="history.jsp">위치 히스토리 목록</a> | <a href="load-wifi.jsp">Open API 와이파이 정보 가져오기</a> | <a href="">북마크 보기</a> | <a href="bookmark_groups.jsp">북마크 그룹 관리</a>
+        <a href="index.jsp">홈</a> | <a href="history.jsp">위치 히스토리 목록</a> | <a href="load-wifi.jsp">Open API 와이파이 정보 가져오기</a> | <a href="bookmark_list.jsp">북마크 보기</a> | <a href="bookmark_groups.jsp">북마크 그룹 관리</a>
     </div>
     <table>
-        <%
-            int groupId = Integer.parseInt(request.getParameter("id"));
-            BookmarkGroupService service = new BookmarkGroupService();
-            BookmarkGroup group = service.getGroupById(groupId);
-        %>
         <tr>
             <th>북마크 이름</th>
             <td>
-                <input type="text" id="name" value="<%= group.getName() %>">
+                <input type="text" id="name" value="<%= groupName %>">
             </td>
         </tr>
         <tr>
             <th>순서</th>
             <td>
-                <input type="number" id="order" value="<%= group.getOrder() %>">
+                <input type="number" id="order" value="<%= groupOrder %>">
             </td>
         </tr>
     </table>
@@ -107,4 +114,3 @@
     </script>
 </body>
 </html>
-

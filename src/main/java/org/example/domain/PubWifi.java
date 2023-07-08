@@ -1,5 +1,7 @@
 package org.example.domain;
 
+import java.util.Date;
+
 public class PubWifi {
 
     private String dist;
@@ -158,5 +160,88 @@ public class PubWifi {
 
 
 
+
+
+    //북마크
+    private int id;
+    private String name;
+    private String ssid;
+    private String password;
+    private int groupId;
+    private Date createDate;
+    private Date modifiedDate;
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSsid() {
+        return ssid;
+    }
+
+    public void setSsid(String ssid) {
+        this.ssid = ssid;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public int getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(int groupId) {
+        this.groupId = groupId;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public Date getModifiedDate() {
+        return modifiedDate;
+    }
+
+    public void setModifiedDate(Date modifiedDate) {
+        this.modifiedDate = modifiedDate;
+    }
+
+    public double getLatitudeAsDouble() {
+        return Double.parseDouble(latitude);
+    }
+
+    public double getLongitudeAsDouble() {
+        return Double.parseDouble(longitude);
+    }
+
+    public void setLatitudeFromDouble(double latitudeValue) {
+        this.latitude = String.valueOf(latitudeValue);
+    }
+
+    public void setLongitudeFromDouble(double longitudeValue) {
+        this.longitude = String.valueOf(longitudeValue);
+    }
 
 }

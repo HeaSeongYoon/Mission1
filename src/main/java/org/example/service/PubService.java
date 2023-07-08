@@ -155,7 +155,21 @@ public class PubService {
         pubDao.deleteAll();
     }
 
+    public List<PubWifi> findBookmarkListByGroupId(int groupId) {
+        PubDao pubDao = new PubDao();
+        return pubDao.selectBookmarkByGroupId(groupId);
+    }
 
+    // Find PubWifi by Id
+    public PubWifi findById(int id) {
+        PubDao pubDao = new PubDao();
+        return pubDao.findById(id);
+    }
+
+    public static PubWifi getPubWifi(int id) {
+        PubDao pubDao = new PubDao();
+        return pubDao.findById(id);
+    }
 
 
 }
