@@ -9,7 +9,7 @@ public class BookmarkGroup {
     private Date createDate;
     private Date modifiedDate;
 
-    // 추가적인 필요한 메소드들
+
 
     public int getId() {
         return id;

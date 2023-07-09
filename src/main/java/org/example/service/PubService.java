@@ -160,7 +160,6 @@ public class PubService {
         return pubDao.selectBookmarkByGroupId(groupId);
     }
 
-    // Find PubWifi by Id
     public PubWifi findById(int id) {
         PubDao pubDao = new PubDao();
         return pubDao.findById(id);

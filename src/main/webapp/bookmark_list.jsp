@@ -1,8 +1,8 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="org.example.service.BookmarkGroupService" %>
-<%@ page import="org.example.domain.BookmarkGroup" %>
+<%@ page import="org.example.domain.Bookmark" %>
 <%@ page import="org.example.service.PubService" %>
-<%@ page import="org.example.domain.PubWifi" %>
+<%@ page import="org.example.dao.PubDao" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
@@ -54,26 +54,20 @@
             </tr>
             <%
                 SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                BookmarkGroupService service = new BookmarkGroupService();
-                PubService pubService = new PubService();
-                List<BookmarkGroup> bookmarkGroups = service.listAllGroups();
-                for (BookmarkGroup group : bookmarkGroups) {
-                    List<PubWifi> pubs = pubService.findBookmarkListByGroupId(group.getId());
-                    for(PubWifi pub : pubs) {
+                PubDao pubDao = new PubDao();
+                List<Bookmark> bookmarks = pubDao.findAllBookmarks();
+                for (Bookmark bookmark : bookmarks) {
             %>
             <tr>
-                    <td><%= group.getId() %></td>
-                    <td><%= group.getName() %></td>
-                    <td><%= pub.getMainNm() %></td>
-                    <td><%= dateFormatter.format(pub.getCreateDate()) %></td>
-                    <td>
-                        <a href="deleteBookmark.jsp?id=<%= group.getId() %>&pubWifiId=<%= pub.getId() %>" onclick="return confirm('삭제하시겠습니까?');">삭제</a>
-                    </td>
-                </tr>
-                <%
-                    }
-                }
-            %>
+                <td><%= bookmark.getHistNo() %></td>
+                <td><%= bookmark.getName() %></td>
+                <td><%= bookmark.getMainNm() %></td>
+                <td><%= dateFormatter.format(bookmark.getCreateDate()) %></td>
+                <td>
+                    <a href="deleteBookmark.jsp?id=<%= bookmark.getHistNo() %>" onclick="return confirm('삭제하시겠습니까?');">삭제</a>
+                </td>
+            </tr>
+            <% } %>
         </table>
     </div>
 </body>

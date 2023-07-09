@@ -1,8 +1,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="org.example.service.PubService" %>
 <%@ page import="org.example.domain.PubWifi" %>
-<%@ page import="org.example.service.BookmarkGroupService" %><!-- BookmarkGroupService 클래스 추가 -->
-<%@ page import="org.example.domain.BookmarkGroup" %><!-- BookmarkGroup 클래스 추가 -->
+<%@ page import="org.example.service.BookmarkGroupService" %>
+<%@ page import="org.example.domain.BookmarkGroup" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="kr">
@@ -93,6 +93,20 @@
           }
         }
 
+        function saveBookmark() {
+            const bookmarkGroupSelector = document.getElementById("bookmark-group-selector");
+            const groupId = bookmarkGroupSelector.value;
+            if (groupId === "") {
+                alert("북마크 그룹을 선택해주세요.");
+                return;
+            }
+            const url = "addBookmark.jsp?bookmarkGroupId=" +
+                        groupId +
+                        "&wifiId=" +
+                        document.getElementById("mgrNo").innerText;
+            location.href = url;
+        }
+
         if (!window.location.href.includes("?")) {
           getLocation();
         }
@@ -120,7 +134,7 @@
                             <option value="<%= group.getId() %>"><%= group.getName() %></option>
                         <% } %>
             </select>
-            <button type="button">북마크 추가하기</button>
+            <button type="button" onclick="saveBookmark()">북마크 추가하기</button>
         </div>
     </div>
     <%
@@ -150,7 +164,7 @@
         </tr>
         <tr>
             <th>관리번호</th>
-            <td><%= wifi.getMgrNo() %></td>
+            <td id="mgrNo"><%= wifi.getMgrNo() %></td>
         </tr>
         <tr>
             <th>와이파이 명칭</th>

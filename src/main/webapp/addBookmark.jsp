@@ -1,44 +1,33 @@
-<%@ page import="java.net.URLEncoder" %>
-<%@ page import="org.example.domain.PubWifi" %>
-<%@ page import="org.example.service.PubService" %>
+<%@ page import="java.util.Date" %>
 <%@ page import="org.example.service.BookmarkService" %>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>북마크 추가</title>
+</head>
+<body>
+    <%
     String groupId = request.getParameter("groupId");
-    String apiKey = request.getParameter("apiKey");
-    String mgrNo = request.getParameter("mgrNo");
-    String detailUrl = request.getParameter("detailUrl");
+    String wifiId = request.getParameter("wifiId");
 
-    PubWifi wifi = null;
-    BookmarkService bookmarkService = new BookmarkService();
-
-    if (groupId != null && apiKey != null && mgrNo != null && detailUrl != null) {
-        PubService pubService = new PubService();
-        wifi = pubService.getWifiDetail(apiKey, detailUrl);
-
-        if (wifi != null) {
-            boolean success = bookmarkService.addBookmark(groupId, wifi);
-            if (!success) {
-                response.setStatus(500);
-                return;
-            }
-            response.setStatus(200);
-            return;
+    if (groupId != null && wifiId != null && !groupId.isEmpty() && !wifiId.isEmpty()) {
+        BookmarkService bookmarkService = new BookmarkService();
+        if (bookmarkService.addBookmark(groupId, wifiId)) {
+            response.sendRedirect("bookmark_list.jsp");
+        } else {
+            %>
+            <p>북마크 추가에 실패했습니다.</p>
+            <button onclick="window.history.back();">뒤로 가기</button>
+            <%
         }
-    }
-
-    groupId = request.getParameter("groupId");
-    int pubWifiId = Integer.parseInt(request.getParameter("pubWifiId"));
-
-    BookmarkGroupService groupService = new BookmarkGroupService();
-    PubService pubService = new PubService();
-
-    boolean success = groupService.addBookmarkToGroup(groupId, pubWifiId);
-
-    if(success) {
-        response.sendRedirect("bookmark_list.jsp");
     } else {
-        // Error handling
-        out.print("<script>alert('북마크 추가에 실패하였습니다.'); window.history.back();</script>");
+        %>
+        <p>잘못된 요청입니다.</p>
+        <button onclick="window.history.back();">뒤로 가기</button>
+        <%
     }
-%>
+    %>
+</body>
+</html>

@@ -2,6 +2,7 @@ package org.example.dao;
 
 import org.example.common.Db;
 import org.example.domain.PubWifi;
+import org.example.domain.Bookmark;
 
 
 
@@ -377,6 +378,37 @@ public class PubDao {
         }
 
         return bookmarkList;
+    }
+
+
+
+    public List<Bookmark> findAllBookmarks() {
+        List<Bookmark> bookmarks = new ArrayList<>();
+
+        try {
+            Class.forName("org.sqlite.JDBC");
+            Connection connection = DriverManager.getConnection("jdbc:sqlite:C:/Users/STEALTH/DataGripProjects/M1/identifier.sqlite", "username", "password");
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM bookmark");
+
+            while (resultSet.next()) {
+                Bookmark bookmark = new Bookmark(
+                        resultSet.getInt("HIST_NO"),
+                        resultSet.getString("MAIN_NM"),
+                        resultSet.getString("name"),
+                        resultSet.getTimestamp("create_date")
+                );
+                bookmarks.add(bookmark);
+            }
+
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return bookmarks;
     }
 }
 

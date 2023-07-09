@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import static org.example.common.Db.getConnection;
+
 @WebServlet("/deletehist")
 public class DeleteHistServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -25,7 +27,7 @@ public class DeleteHistServlet extends HttpServlet {
         PreparedStatement stat = null;
 
         try {
-            conn = Db.getConnection();
+            conn = getConnection();
 
             String sql = "DELETE FROM HIST WHERE HIST_NO= ?";
             stat = conn.prepareStatement(sql);
@@ -57,4 +59,18 @@ public class DeleteHistServlet extends HttpServlet {
         }
     }
 
+
+    public boolean addBookmark(String groupId, String wifiId) throws ClassNotFoundException, SQLException {
+        Connection conn = getConnection();
+        String sql = "INSERT INTO bookmark (HIST_NO, MAIN_NM, name, create_date) (SELECT ROWID, MAIN_NM, MGR_NO, strftime('%Y-%m-%d %H:%M:%f', 'now') FROM PUB_WIFI WHERE MGR_NO = ?)";
+
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, wifiId);
+
+        int rowsAffected = pstmt.executeUpdate();
+        pstmt.close();
+        conn.close();
+
+        return rowsAffected > 0;
+    }
 }
