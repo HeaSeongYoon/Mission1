@@ -254,7 +254,6 @@ public class PubDao {
         }
     }
 
-    // Delete an existing PubWifi from the database
     public void delete(int id) {
         String sql = "DELETE FROM pub_wifi WHERE id=?";
 
@@ -269,7 +268,7 @@ public class PubDao {
         }
     }
 
-    // Find PubWifi by Id
+
     public PubWifi findById(int id) {
         String sql = "SELECT * FROM HIST WHERE HIST_NO = ?";
         PubWifi pubWifi = null;

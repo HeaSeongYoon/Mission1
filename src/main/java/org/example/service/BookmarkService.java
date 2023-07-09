@@ -60,7 +60,7 @@ public class BookmarkService {
                     bookmarkId = resultSet.getInt(1);
                 }
 
-                // 북마크 그룹과 연결하는 코드 추가 (bookmark_groups 테이블에 데이터 추가)
+                // 북마크 그룹과 연결하는 코드 추가
                 if (bookmarkId != -1) {
                     sql = "INSERT INTO bookmark_groups (bookmark_id, name, sort_order, create_date, modified_date) VALUES (?, ?, ?, ?, ?)";
 

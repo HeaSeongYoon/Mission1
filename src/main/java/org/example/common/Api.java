@@ -8,9 +8,5 @@ public class Api {
     public static final String TYPE = "json";
     public static final String SERVICE = "TbPubWifiInfo";
 
-    /*public static String getUrl(int startIndex, int endIndex) {
-        return BASE_URL + "/" + KEY + "/" + TYPE + "/" + SERVICE + "/" + startIndex + "/" + endIndex + "/";
-    }*/
-
 }
 

@@ -1,4 +1,4 @@
-// Bookmark.java
+
 package org.example.domain;
 
 import java.text.ParseException;

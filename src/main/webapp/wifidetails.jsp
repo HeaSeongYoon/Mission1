@@ -86,7 +86,6 @@
               var url = window.location.href.split('?')[0];
               window.location.href = url + "?lat=" + lat + "&lon=" + lon;
             }, function() {
-                // 위치 권한 거부 또는 기타 오류 시 처리
             });
           } else {
             alert("이 브라우저는 위치 정보 지원하지 않습니다.");
@@ -123,14 +122,14 @@
             <a href="bookmark_groups.jsp">북마크 그룹 관리</a>
         </div>
         <%
-                    // BookmarkGroupService 클래스를 인스턴스화 하여 그룹 이름을 가져옵니다.
+
                     BookmarkGroupService bookmarkGroupService = new BookmarkGroupService();
                     List<BookmarkGroup> bookmarkGroups = bookmarkGroupService.listAllGroups();
         %>
         <div class="bookmark-group">
                     <select name="bookmark-group-selector" id="bookmark-group-selector">
                         <option value="" disabled selected>북마크 그룹 이름 선택하기</option>
-                        <% for (BookmarkGroup group : bookmarkGroups) { %> <!-- 북마크 그룹 리스트 추가 -->
+                        <% for (BookmarkGroup group : bookmarkGroups) { %>
                             <option value="<%= group.getId() %>"><%= group.getName() %></option>
                         <% } %>
             </select>

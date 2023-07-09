@@ -97,7 +97,7 @@ public class PubService {
 
 
 
-                //JSONObject result = (JSONObject) new JSONObject().parse(sb.toString());
+
                 JSONParser parser = new JSONParser();
                 JSONObject result = (JSONObject) parser.parse(sb.toString());
                 JSONObject data = (JSONObject) result.get("TbPubWifiInfo");

@@ -19,8 +19,6 @@
         <url-pattern>/MainServlet</url-pattern>
     </servlet-mapping>
 
-
-    <!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
     <dependency>
         <groupId>com.squareup.okhttp3</groupId>
         <artifactId>okhttp</artifactId>
